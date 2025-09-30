@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { fonts } from '@/config/fonts'
 import { getCookie, setCookie, removeCookie } from '@/lib/cookies'
 
@@ -13,7 +13,7 @@ type FontContextType = {
   resetFont: () => void
 }
 
-const FontContext = createContext<FontContextType | null>(null)
+export const FontContext = createContext<FontContextType | null>(null)
 
 export function FontProvider({ children }: { children: React.ReactNode }) {
   const [font, _setFont] = useState<Font>(() => {
@@ -44,15 +44,7 @@ export function FontProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <FontContext value={{ font, setFont, resetFont }}>{children}</FontContext>
+    <FontContext.Provider value={{ font, setFont, resetFont }}>{children}</FontContext.Provider>
   )
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useFont = () => {
-  const context = useContext(FontContext)
-  if (!context) {
-    throw new Error('useFont must be used within a FontProvider')
-  }
-  return context
-}

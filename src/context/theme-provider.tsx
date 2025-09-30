@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useMemo } from 'react'
+import { createContext, useEffect, useState, useMemo } from 'react'
 import { getCookie, setCookie, removeCookie } from '@/lib/cookies'
 
 type Theme = 'dark' | 'light' | 'system'
@@ -30,7 +30,7 @@ const initialState: ThemeProviderState = {
   resetTheme: () => null,
 }
 
-const ThemeContext = createContext<ThemeProviderState>(initialState)
+export const ThemeContext = createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({
   children,
@@ -93,17 +93,8 @@ export function ThemeProvider({
   }
 
   return (
-    <ThemeContext value={contextValue} {...props}>
+    <ThemeContext.Provider value={contextValue} {...props}>
       {children}
-    </ThemeContext>
+    </ThemeContext.Provider>
   )
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useTheme = () => {
-  const context = useContext(ThemeContext)
-
-  if (!context) throw new Error('useTheme must be used within a ThemeProvider')
-
-  return context
 }

@@ -12,9 +12,9 @@ import { IconThemeDark } from '@/assets/custom/icon-theme-dark'
 import { IconThemeLight } from '@/assets/custom/icon-theme-light'
 import { IconThemeSystem } from '@/assets/custom/icon-theme-system'
 import { cn } from '@/lib/utils'
-import { useDirection } from '@/context/direction-provider'
-import { type Collapsible, useLayout } from '@/context/layout-provider'
-import { useTheme } from '@/context/theme-provider'
+import { useDirection } from '@/context/use-direction'
+import { type Collapsible, useLayout } from '@/context/use-layout'
+import { useTheme } from '@/context/use-theme'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,

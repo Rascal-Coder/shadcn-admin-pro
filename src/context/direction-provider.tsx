@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { DirectionProvider as RdxDirProvider } from '@radix-ui/react-direction'
 import { getCookie, setCookie, removeCookie } from '@/lib/cookies'
 
@@ -15,7 +15,7 @@ type DirectionContextType = {
   resetDir: () => void
 }
 
-const DirectionContext = createContext<DirectionContextType | null>(null)
+export const DirectionContext = createContext<DirectionContextType | null>(null)
 
 export function DirectionProvider({ children }: { children: React.ReactNode }) {
   const [dir, _setDir] = useState<Direction>(
@@ -38,7 +38,7 @@ export function DirectionProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <DirectionContext
+    <DirectionContext.Provider
       value={{
         defaultDir: DEFAULT_DIRECTION,
         dir,
@@ -47,15 +47,6 @@ export function DirectionProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       <RdxDirProvider dir={dir}>{children}</RdxDirProvider>
-    </DirectionContext>
+    </DirectionContext.Provider>
   )
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export function useDirection() {
-  const context = useContext(DirectionContext)
-  if (!context) {
-    throw new Error('useDirection must be used within a DirectionProvider')
-  }
-  return context
 }

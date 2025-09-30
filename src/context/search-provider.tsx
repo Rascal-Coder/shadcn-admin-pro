@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { CommandMenu } from '@/components/command-menu'
 
 type SearchContextType = {
@@ -6,7 +6,7 @@ type SearchContextType = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SearchContext = createContext<SearchContextType | null>(null)
+export const SearchContext = createContext<SearchContextType | null>(null)
 
 type SearchProviderProps = {
   children: React.ReactNode
@@ -27,20 +27,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
   }, [])
 
   return (
-    <SearchContext value={{ open, setOpen }}>
+    <SearchContext.Provider value={{ open, setOpen }}>
       {children}
       <CommandMenu />
-    </SearchContext>
+    </SearchContext.Provider>
   )
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useSearch = () => {
-  const searchContext = useContext(SearchContext)
-
-  if (!searchContext) {
-    throw new Error('useSearch has to be used within SearchProvider')
-  }
-
-  return searchContext
 }
